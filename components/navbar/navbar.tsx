@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import styles from "@/styles/Navbar.module.css";
-import Link from 'next/link'
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 type project = {
     name: string;
     route: string;
 };
 
-const Navbar = ({}) => {
+type NavbarProps = {};
+
+const Navbar = (_props: NavbarProps) => {
     const [isShown, setIsShown] = useState(false);
+    const router = useRouter();
 
     const projects: project[] = [
         {
@@ -37,8 +41,16 @@ const Navbar = ({}) => {
                         {isShown && (
                             <>
                                 {projects.map(({ name, route }, index) => (
-                                    <div key={index} className={styles.dropdownstyle}>
-                                        <Link key={index} href={route}>{name}</Link>
+                                    <div
+                                        key={index}
+                                        className={styles.dropdownstyle}
+                                        onClick={() => {
+                                            router.push(route);
+                                        }}
+                                    >
+                                        <Link key={index} href={route}>
+                                            {name}
+                                        </Link>
                                     </div>
                                 ))}
                             </>

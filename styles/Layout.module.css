@@ -1,9 +1,22 @@
 .container {
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 500px;
+    max-width: 600px;
+    color: white;
+    font-family: "Roboto Mono", monospace;
+    /* for mobile devices or small width windows */
+    @media (max-width: 875px) {
+        overflow-y: scroll;
+        margin-left: 10px;
+        margin-right: 10px;
+        min-width: 0px;
+    }
 }
 
 .contained {
-   position: relative; 
-   top: 50px;
-   height: 200px;
+    position: relative;
+    top: 50px;
+    height: 200px;
 }

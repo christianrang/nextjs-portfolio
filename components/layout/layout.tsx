@@ -6,7 +6,6 @@ type LayoutProps = {
     children: ReactNode,
 }
 
-
 const Layout = (props: LayoutProps) => {
     return (
         <>
