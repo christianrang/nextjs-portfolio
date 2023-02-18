@@ -8,6 +8,7 @@ type Bar = {
 
 const barStyle = {
     margin: "2px",
+    size: "100px",
 };
 
 const divStyle = {
@@ -150,10 +151,12 @@ export default function Sorter() {
                 {bars.map(({ size, color }, index) => (
                     <hr
                         key={index}
-                        style={barStyle}
+                        style={{
+                            height: size,
+                            width: 10,
+                            margin: '2px',
+                        }}
                         color={color}
-                        width="100"
-                        size={String(size)}
                     />
                 ))}
                 <button onClick={() => sortBars(bars, setBars)}>Sort</button>
