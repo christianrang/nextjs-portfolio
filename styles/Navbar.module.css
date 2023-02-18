@@ -1,0 +1,33 @@
+.navbaritem {
+  display: inline-block;
+  padding: 5px;
+  font-weight: 300;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 10px;
+  font-family: "Roboto Mono", monospace;
+  top: 0px;
+  z-index: 100;
+  background: black;
+}
+
+.dropdownstyle {
+    display: flex;
+    background: black;
+}
+
+.dropdownstyle:hover {
+    background: grey;
+}
+
+.navbarcontainer {
+  z-index: 10;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  min-width: 600px;
+  @media (max-width: 875px) {
+    margin-left: -10px;
+    min-width: 100px;
+  }
+}
