@@ -3,18 +3,19 @@ import styles from "@/styles/Navbar.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-type project = {
+type Project = {
     name: string;
     route: string;
 };
 
-type NavbarProps = {};
+type NavbarProps = {
+};
 
 const Navbar = (_props: NavbarProps) => {
     const [isShown, setIsShown] = useState(false);
     const router = useRouter();
 
-    const projects: project[] = [
+    const projects: Project[] = [
         {
             name: "Test",
             route: "/test",
@@ -62,4 +63,5 @@ const Navbar = (_props: NavbarProps) => {
     );
 };
 
+export type { NavbarProps };
 export default Navbar;

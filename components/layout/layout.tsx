@@ -6,12 +6,12 @@ type LayoutProps = {
     children: ReactNode,
 }
 
-const Layout = (props: LayoutProps) => {
+const Layout = ({children}: LayoutProps) => {
     return (
         <>
             <div className={styles.container}>
                 <Navbar />
-                <div className={styles.contained}>{props.children}</div>
+                <div className={styles.contained}>{children}</div>
             </div>
         </>
     );
