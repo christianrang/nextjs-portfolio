@@ -1,7 +1,7 @@
 import Sorter from '../components/sorter/sorter';
 import Layout from '../components/layout/layout';
 
-const Test = () => {
+const Sort = () => {
     return (
         <Layout>
             <Sorter />
@@ -9,4 +9,4 @@ const Test = () => {
     )
 }
 
-export default Test;
+export default Sort;

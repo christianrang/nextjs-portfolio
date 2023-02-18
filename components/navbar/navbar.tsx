@@ -8,8 +8,7 @@ type Project = {
     route: string;
 };
 
-type NavbarProps = {
-};
+type NavbarProps = {};
 
 const Navbar = (_props: NavbarProps) => {
     const [isShown, setIsShown] = useState(false);
@@ -17,12 +16,12 @@ const Navbar = (_props: NavbarProps) => {
 
     const projects: Project[] = [
         {
-            name: "Test",
-            route: "/test",
+            name: "Sort",
+            route: "/sort",
         },
         {
-            name: "Test2",
-            route: "/test",
+            name: "Pathfind",
+            route: "/pathfind",
         },
     ];
 

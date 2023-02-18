@@ -1,5 +1,7 @@
 :root {
     --main-bg-color: #1d1c1b;
+    --max-width: 600px;
+    --min-width: 200px;
 }
 
 @media (prefers-color-scheme: dark) {
