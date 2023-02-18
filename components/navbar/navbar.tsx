@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 type Project = {
     name: string;
     route: string;
+    enabled: boolean;
 };
 
 type NavbarProps = {};
@@ -18,10 +19,12 @@ const Navbar = (_props: NavbarProps) => {
         {
             name: "Sort",
             route: "/sort",
+            enabled: false,
         },
         {
             name: "Pathfind",
             route: "/pathfind",
+            enabled: false,
         },
     ];
 
@@ -40,7 +43,9 @@ const Navbar = (_props: NavbarProps) => {
                     <>
                         {isShown && (
                             <>
-                                {projects.map(({ name, route }, index) => (
+                                {projects.map(({ name, route, enabled}, index) => {
+                                if (enabled) {
+                                    return (
                                     <div
                                         key={index}
                                         className={styles.dropdownstyle}
@@ -52,7 +57,9 @@ const Navbar = (_props: NavbarProps) => {
                                             {name}
                                         </Link>
                                     </div>
-                                ))}
+                                    )
+                                }
+                                })}
                             </>
                         )}
                     </>
