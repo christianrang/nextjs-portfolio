@@ -39,12 +39,31 @@ const cleanBoard = [
     [XO.Empty, XO.Empty, XO.Empty],
 ];
 
+enum CheckStatus {
+    seen = "seen",
+    notseen = "notseen"
+}
+
 const validateBoardState = (
     board: BoardState,
     setWinner: (winner: PlayerType) => void
 ) => {
     let cursor: BoardCoord = { x: 0, y: 0 };
+
+    let xboard = board.rows.map((row) => {row.map((square) => {return CheckStatus.notseen})})
+
+    // Validate for X
+    for (let x = 0; x < 3; x++) {
+        for (let y = 0; y < 3; y++) {
+
+        }
+    }
+
 };
+
+const checkBlock = (coords: BoardCoord, board: CheckStatus[][]) => {
+
+}
 
 type BoardBlock = {
     coords: BoardCoord;
@@ -117,7 +136,7 @@ const TicTacToeGame = () => {
         });
 
         if (newRows[coord.y][coord.x] !== XO.Empty) {
-            return;
+            return false;
         }
 
         newRows[coord.y][coord.x] = value;
@@ -125,6 +144,7 @@ const TicTacToeGame = () => {
             ...boardState,
             rows: newRows,
         });
+        return true;
     };
 
     const togglePlayerTurn = (current: PlayerType) => {
@@ -155,11 +175,13 @@ const TicTacToeGame = () => {
                             id={block.id}
                             className={styles.block}
                             onClick={() => {
-                                setXO(
+                                let didSet = setXO(
                                     block.coords,
                                     boardState.playerTurn.marker
                                 );
-                                togglePlayerTurn(boardState.playerTurn);
+                                if (didSet) {
+                                    togglePlayerTurn(boardState.playerTurn);
+                                }
                             }}
                         >
                             {boardState.rows[block.coords.y][block.coords.x]}
