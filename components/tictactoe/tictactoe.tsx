@@ -31,6 +31,8 @@ type BoardState = {
     winner?: PlayerType;
     rows: XO[][];
     playerTurn: PlayerType;
+    movesCount: number;
+    gameOver: boolean;
 };
 
 const cleanBoard = [
@@ -39,31 +41,122 @@ const cleanBoard = [
     [XO.Empty, XO.Empty, XO.Empty],
 ];
 
-enum CheckStatus {
-    seen = "seen",
-    notseen = "notseen"
-}
-
+// TODO: this is jank, but it works until I can figure out the right way.
 const validateBoardState = (
     board: BoardState,
     setWinner: (winner: PlayerType) => void
 ) => {
-    let cursor: BoardCoord = { x: 0, y: 0 };
+    // Check horizontal
+    for (let row of board.rows) {
+        let numberOfX = 0;
+        let numberOfO = 0;
 
-    let xboard = board.rows.map((row) => {row.map((square) => {return CheckStatus.notseen})})
-
-    // Validate for X
+        for (let item of row) {
+            if (item === XO.X) {
+                if (numberOfO !== 0) {
+                    break;
+                }
+                numberOfX++;
+            }
+            if (item === XO.O) {
+                if (numberOfX !== 0) {
+                    break;
+                }
+                numberOfO++;
+            }
+        }
+        if (numberOfX === 3) {
+            setWinner(Player1);
+        }
+        if (numberOfO === 3) {
+            setWinner(Player2);
+        }
+    }
+    // Check vertical
     for (let x = 0; x < 3; x++) {
-        for (let y = 0; y < 3; y++) {
+        let numberOfX = 0;
+        let numberOfO = 0;
 
+        for (let y = 0; y < 3; y++) {
+            let item = board.rows[y][x]
+            if (item === XO.X) {
+                if (numberOfO !== 0) {
+                    break;
+                }
+                numberOfX++;
+            }
+            if (item === XO.O) {
+                if (numberOfX !== 0) {
+                    break;
+                }
+                numberOfO++;
+            }
+        }
+        if (numberOfX === 3) {
+            setWinner(Player1);
+        }
+        if (numberOfO === 3) {
+            setWinner(Player2);
         }
     }
 
+    const diagonals: BoardCoord[][] = [
+        [
+        {
+            x: 0,
+            y: 0,
+        },
+        {
+            x: 1,
+            y: 1,
+        },
+        {
+            x: 2,
+            y: 2,
+        },
+        ],
+        [
+        {
+            x: 2,
+            y: 0,
+        },
+        {
+            x: 1,
+            y: 1,
+        },
+        {
+            x: 0,
+            y: 2,
+        },
+        ]
+    ]
+
+    for (let diagonal of diagonals) {
+        let numberOfX = 0;
+        let numberOfO = 0;
+
+        for (let coords of diagonal) {
+            if (board.rows[coords.y][coords.x] === XO.X) {
+                if (numberOfO > 0) {
+                    break
+                }
+                numberOfX++
+            }
+            if (board.rows[coords.y][coords.x] === XO.O) {
+                if (numberOfX > 0) {
+                    break
+                }
+                numberOfO++
+            }
+        }
+        if (numberOfX === 3) {
+            setWinner(Player1);
+        }
+        if (numberOfO === 3) {
+            setWinner(Player2);
+        }
+    }
 };
-
-const checkBlock = (coords: BoardCoord, board: CheckStatus[][]) => {
-
-}
 
 type BoardBlock = {
     coords: BoardCoord;
@@ -114,19 +207,39 @@ const TicTacToeGame = () => {
         rows: cleanBoard,
         winner: undefined,
         playerTurn: Player1,
+        movesCount: 0,
+        gameOver: false,
     });
+
+    const resetBoardState = () => {
+        setBoardState({
+            rows: boardState.rows.map((row) => {
+                return row.map(() => {
+                    return XO.Empty;
+                });
+            }),
+            winner: undefined,
+            playerTurn: Player1,
+            movesCount: 0,
+            gameOver: false,
+        });
+        console.log(boardState);
+    };
 
     const setWinner = (winner: PlayerType) => {
         setBoardState({
             ...boardState,
             winner: winner,
+            gameOver: true,
         });
     };
 
     const setPlayerTurn = (player: PlayerType) => {
+        let value = boardState.movesCount + 1;
         setBoardState({
             ...boardState,
             playerTurn: player,
+            movesCount: value,
         });
     };
 
@@ -181,6 +294,7 @@ const TicTacToeGame = () => {
                                 );
                                 if (didSet) {
                                     togglePlayerTurn(boardState.playerTurn);
+                                    validateBoardState(boardState, setWinner);
                                 }
                             }}
                         >
@@ -189,6 +303,16 @@ const TicTacToeGame = () => {
                     );
                 })}
             </div>
+            {boardState.gameOver && (
+                <div>
+                    <button onClick={() => resetBoardState()}>Reset</button>
+                </div>
+            )}
+            {boardState.movesCount === 9 && (
+                <div>
+                    <button onClick={() => resetBoardState()}>Reset</button>
+                </div>
+            )}
         </>
     );
 };
