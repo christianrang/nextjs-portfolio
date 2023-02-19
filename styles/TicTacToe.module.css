@@ -1,3 +1,8 @@
+.boardContainer {
+    display: grid;
+    justify-content: center;
+}
+
 .board {
     display: grid;
     width: 600px;
@@ -41,4 +46,21 @@
 
 .block:hover {
     background: grey;
+}
+
+.dashboard {
+    position: absolute;
+    left: 10px;
+    top: 25vh;
+    font-size: 3vh;
+}
+
+.playagain {
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #3cb371;
+    border: 1px solid #3cb371;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px -6px -6px 12px #3cb371;
 }
