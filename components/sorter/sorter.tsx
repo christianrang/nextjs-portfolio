@@ -124,7 +124,7 @@ export default function Sorter() {
 
     const [currentWidth, setCurrentWidth] = useState<number>(0);
 
-    const squareRef = React.createRef();
+    const squareRef = React.useRef<HTMLDivElement>(null);
 
 
     const delayInMs = 1000 * 2;
