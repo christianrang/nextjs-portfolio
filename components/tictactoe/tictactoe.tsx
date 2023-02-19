@@ -265,7 +265,7 @@ const TicTacToeGame = ({ playerState, setPlayerState }) => {
             return value;
         });
 
-        if (newRows[coord.y][coord.x] !== XO.Empty) {
+        if (newRows[coord.y][coord.x] !== XO.Empty || boardState.gameOver) {
             return false;
         }
 
