@@ -19,12 +19,17 @@ const Navbar = (_props: NavbarProps) => {
         {
             name: "Sort",
             route: "/sort",
-            enabled: false,
+            enabled: true,
         },
         {
             name: "Pathfind",
             route: "/pathfind",
-            enabled: false,
+            enabled: true,
+        },
+        {
+            name: "Tic Tac Toe",
+            route: "/tictactoe",
+            enabled: true,
         },
     ];
 

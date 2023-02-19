@@ -1,0 +1,44 @@
+.board {
+    display: grid;
+    width: 300px;
+    height: 300px;
+    grid-template-columns: auto auto auto;
+}
+
+.block {
+    border: 2px solid white;
+    display: flex;
+    height: 200px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    font-size: 6rem;
+}
+
+#block0,
+#block1,
+#block2 {
+    border-top: none;
+}
+
+#block0,
+#block3,
+#block6 {
+    border-left: none;
+}
+
+#block2,
+#block5,
+#block8 {
+    border-right: none;
+}
+
+#block6,
+#block7,
+#block8 {
+    border-bottom: none;
+}
+
+.block:hover {
+    background: grey;
+}
