@@ -24,6 +24,13 @@ body {
     background: var(--main-bg-color);
 }
 
+h1,
+h2 {
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 a {
     color: inherit;
     text-decoration: none;

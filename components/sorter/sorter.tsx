@@ -6,11 +6,6 @@ type Bar = {
     size: number;
 };
 
-const barStyle = {
-    margin: "2px",
-    size: "100px",
-};
-
 const divStyle = {
     display: "inline-flex",
     width: "600px",
@@ -125,14 +120,22 @@ const sortBars = (
 export default function Sorter() {
     const [barCount, setBarCount] = useState<number>(10);
     const [bars, setBars] = useState<Bar[]>(generateBars(barCount));
-    const [sort, setSort] = useState(false);
+    const [sort, setSort] = useState<boolean>(false);
+
+    const [currentWidth, setCurrentWidth] = useState<number>(0);
+
+    const squareRef = React.useRef<HTMLDivElement>(null);
+
 
     const delayInMs = 1000 * 2;
 
     useEffect(() => {
+        if (squareRef.current) {
+            setCurrentWidth(squareRef.current.getBoundingClientRect().width)
+            console.log(currentWidth)
+        }
         const interval = setInterval(() => {
             sortBars(bars, setBars);
-            console.log(bars);
         }, delayInMs);
         return () => {
             clearInterval(interval);
@@ -147,13 +150,13 @@ export default function Sorter() {
                 generateBars={generateBars}
                 barCount={barCount}
             />
-            <div style={divStyle}>
+            <div style={divStyle} ref={squareRef}>
                 {bars.map(({ size, color }, index) => (
                     <hr
                         key={index}
                         style={{
                             height: size,
-                            width: 10,
+                            width: currentWidth / barCount,
                             margin: '2px',
                         }}
                         color={color}
