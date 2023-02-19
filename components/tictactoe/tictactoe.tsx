@@ -33,6 +33,8 @@ type BoardState = {
     playerTurn: PlayerType;
     movesCount: number;
     gameOver: boolean;
+    player1Wins: number;
+    player2Wins: number;
 };
 
 const cleanBoard = [
@@ -78,7 +80,7 @@ const validateBoardState = (
         let numberOfO = 0;
 
         for (let y = 0; y < 3; y++) {
-            let item = board.rows[y][x]
+            let item = board.rows[y][x];
             if (item === XO.X) {
                 if (numberOfO !== 0) {
                     break;
@@ -102,34 +104,34 @@ const validateBoardState = (
 
     const diagonals: BoardCoord[][] = [
         [
-        {
-            x: 0,
-            y: 0,
-        },
-        {
-            x: 1,
-            y: 1,
-        },
-        {
-            x: 2,
-            y: 2,
-        },
+            {
+                x: 0,
+                y: 0,
+            },
+            {
+                x: 1,
+                y: 1,
+            },
+            {
+                x: 2,
+                y: 2,
+            },
         ],
         [
-        {
-            x: 2,
-            y: 0,
-        },
-        {
-            x: 1,
-            y: 1,
-        },
-        {
-            x: 0,
-            y: 2,
-        },
-        ]
-    ]
+            {
+                x: 2,
+                y: 0,
+            },
+            {
+                x: 1,
+                y: 1,
+            },
+            {
+                x: 0,
+                y: 2,
+            },
+        ],
+    ];
 
     for (let diagonal of diagonals) {
         let numberOfX = 0;
@@ -138,15 +140,15 @@ const validateBoardState = (
         for (let coords of diagonal) {
             if (board.rows[coords.y][coords.x] === XO.X) {
                 if (numberOfO > 0) {
-                    break
+                    break;
                 }
-                numberOfX++
+                numberOfX++;
             }
             if (board.rows[coords.y][coords.x] === XO.O) {
                 if (numberOfX > 0) {
-                    break
+                    break;
                 }
-                numberOfO++
+                numberOfO++;
             }
         }
         if (numberOfX === 3) {
@@ -209,10 +211,13 @@ const TicTacToeGame = () => {
         playerTurn: Player1,
         movesCount: 0,
         gameOver: false,
+        player1Wins: 0,
+        player2Wins: 0,
     });
 
     const resetBoardState = () => {
         setBoardState({
+            ...boardState,
             rows: boardState.rows.map((row) => {
                 return row.map(() => {
                     return XO.Empty;
@@ -227,10 +232,22 @@ const TicTacToeGame = () => {
     };
 
     const setWinner = (winner: PlayerType) => {
+        let player1wins = boardState.player1Wins;
+        let player2wins = boardState.player2Wins;
+
+        switch (winner) {
+            case Player1:
+            player1wins++;
+            break
+            case Player2:
+            player2wins++;
+        }
         setBoardState({
             ...boardState,
             winner: winner,
             gameOver: true,
+            player1Wins: player1wins,
+            player2Wins: player2wins,
         });
     };
 
@@ -280,6 +297,8 @@ const TicTacToeGame = () => {
                 });
             })}
             <h2>Player Turn: {boardState.playerTurn.name}</h2>
+            <h2>Player X wins: {boardState.player1Wins}</h2>
+            <h2>Player O wins: {boardState.player2Wins}</h2>
             <div className={styles.board}>
                 {boardDisplay.map((block, index) => {
                     return (
