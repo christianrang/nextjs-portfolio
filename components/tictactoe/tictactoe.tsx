@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import styles from "@/styles/TicTacToe.module.css";
+import { DashboardProps } from "./dashboard";
 
 enum XO {
     X = "X",
@@ -204,7 +205,12 @@ const boardDisplay: BoardBlock[] = [
     },
 ];
 
-const TicTacToeGame = ({ playerState, setPlayerState }) => {
+type TicTacToeGameProps = {
+    playerState: DashboardProps,
+    setPlayerState: Dispatch<SetStateAction<DashboardProps>>,
+}
+
+const TicTacToeGame = ({ playerState, setPlayerState }: TicTacToeGameProps) => {
     const [boardState, setBoardState] = useState<BoardState>({
         rows: cleanBoard,
         winner: undefined,
