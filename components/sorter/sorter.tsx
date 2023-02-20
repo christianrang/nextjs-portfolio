@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch } from "react";
+import React, { useState, useEffect } from "react";
 import Toolbar from "@/components/sorter/toolbar";
 
 type Bar = {

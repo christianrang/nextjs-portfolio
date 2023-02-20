@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import styles from "@/styles/TicTacToe.module.css";
+import { DashboardProps } from "./dashboard";
 
 enum XO {
     X = "X",
@@ -204,7 +205,12 @@ const boardDisplay: BoardBlock[] = [
     },
 ];
 
-const TicTacToeGame = () => {
+type TicTacToeGameProps = {
+    playerState: DashboardProps,
+    setPlayerState: Dispatch<SetStateAction<DashboardProps>>,
+}
+
+const TicTacToeGame = ({ playerState, setPlayerState }: TicTacToeGameProps) => {
     const [boardState, setBoardState] = useState<BoardState>({
         rows: cleanBoard,
         winner: undefined,
@@ -237,10 +243,10 @@ const TicTacToeGame = () => {
 
         switch (winner) {
             case Player1:
-            player1wins++;
-            break
+                player1wins++;
+                break;
             case Player2:
-            player2wins++;
+                player2wins++;
         }
         setBoardState({
             ...boardState,
@@ -265,7 +271,7 @@ const TicTacToeGame = () => {
             return value;
         });
 
-        if (newRows[coord.y][coord.x] !== XO.Empty) {
+        if (newRows[coord.y][coord.x] !== XO.Empty || boardState.gameOver) {
             return false;
         }
 
@@ -288,50 +294,83 @@ const TicTacToeGame = () => {
         }
     };
 
+    useEffect(() => {
+        const interval = setInterval(() => {}, 500);
+        setPlayerState({
+            ...playerState,
+            data: {
+                player1Wins: boardState.player1Wins,
+                player2Wins: boardState.player2Wins,
+            },
+        });
+        return () => {
+            clearInterval(interval);
+        };
+    });
+
     return (
         <>
-            {boardState.winner && <h1>Winner: {boardState.winner.name}</h1>}
-            {boardState.rows.map((row) => {
-                row.map((value) => {
-                    <p>{value}</p>;
-                });
-            })}
-            <h2>Player Turn: {boardState.playerTurn.name}</h2>
-            <h2>Player X wins: {boardState.player1Wins}</h2>
-            <h2>Player O wins: {boardState.player2Wins}</h2>
-            <div className={styles.board}>
-                {boardDisplay.map((block, index) => {
-                    return (
-                        <div
-                            key={index}
-                            id={block.id}
-                            className={styles.block}
-                            onClick={() => {
-                                let didSet = setXO(
-                                    block.coords,
-                                    boardState.playerTurn.marker
-                                );
-                                if (didSet) {
-                                    togglePlayerTurn(boardState.playerTurn);
-                                    validateBoardState(boardState, setWinner);
-                                }
-                            }}
+            <div className={styles.boardContainer}>
+                <>
+                    {boardState.rows.map((row) => {
+                        row.map((value) => {
+                            <p>{value}</p>;
+                        });
+                    })}
+                    <h2>Player Turn: {boardState.playerTurn.name}</h2>
+                    <div className={styles.board}>
+                        {boardDisplay.map((block, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    id={block.id}
+                                    className={styles.block}
+                                    onClick={() => {
+                                        let didSet = setXO(
+                                            block.coords,
+                                            boardState.playerTurn.marker
+                                        );
+                                        if (didSet) {
+                                            togglePlayerTurn(
+                                                boardState.playerTurn
+                                            );
+                                            validateBoardState(
+                                                boardState,
+                                                setWinner
+                                            );
+                                        }
+                                    }}
+                                >
+                                    {
+                                        boardState.rows[block.coords.y][
+                                            block.coords.x
+                                        ]
+                                    }
+                                </div>
+                            );
+                        })}
+                    </div>
+                    {boardState.winner && (
+                        <h1>Winner: {boardState.winner.name}</h1>
+                    )}
+                    {boardState.gameOver && (
+                        <button
+                            className={styles.playagain}
+                            onClick={() => resetBoardState()}
                         >
-                            {boardState.rows[block.coords.y][block.coords.x]}
-                        </div>
-                    );
-                })}
+                            Play Again
+                        </button>
+                    )}
+                    {boardState.movesCount === 9 && (
+                        <button
+                            className={styles.playagain}
+                            onClick={() => resetBoardState()}
+                        >
+                            Play Again
+                        </button>
+                    )}
+                </>
             </div>
-            {boardState.gameOver && (
-                <div>
-                    <button onClick={() => resetBoardState()}>Reset</button>
-                </div>
-            )}
-            {boardState.movesCount === 9 && (
-                <div>
-                    <button onClick={() => resetBoardState()}>Reset</button>
-                </div>
-            )}
         </>
     );
 };
