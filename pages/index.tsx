@@ -9,7 +9,7 @@ export default function Home() {
     return (
         <>
             <Layout>
-                <h1>I can code</h1>
+                <span>This site has a couple of demonstrations of random things. Use the Projects drop down to explore them all!</span>
             </Layout>
         </>
     );
