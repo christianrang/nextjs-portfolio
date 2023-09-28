@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import styles from "@/styles/TicTacToe.module.css";
 import { DashboardProps } from "./dashboard";
 
@@ -293,20 +293,6 @@ const TicTacToeGame = ({ playerState, setPlayerState }: TicTacToeGameProps) => {
                 break;
         }
     };
-
-    useEffect(() => {
-        const interval = setInterval(() => {}, 500);
-        setPlayerState({
-            ...playerState,
-            data: {
-                player1Wins: boardState.player1Wins,
-                player2Wins: boardState.player2Wins,
-            },
-        });
-        return () => {
-            clearInterval(interval);
-        };
-    });
 
     return (
         <>
