@@ -132,7 +132,6 @@ export default function Sorter() {
     useEffect(() => {
         if (squareRef.current) {
             setCurrentWidth(squareRef.current.getBoundingClientRect().width)
-            console.log(currentWidth)
         }
         const interval = setInterval(() => {
             sortBars(bars, setBars);
