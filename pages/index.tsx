@@ -33,8 +33,6 @@ export default function Home(
     document.title = "Home | Rang Corp";
   }, []);
 
-  console.log(navbarProps);
-
   return (
     <>
       <Layout navbarProps={navbarProps}>
