@@ -234,7 +234,6 @@ const TicTacToeGame = ({ playerState, setPlayerState }: TicTacToeGameProps) => {
             movesCount: 0,
             gameOver: false,
         });
-        console.log(boardState);
     };
 
     const setWinner = (winner: PlayerType) => {
