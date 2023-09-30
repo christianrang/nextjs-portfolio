@@ -1,9 +1,12 @@
+.container {
+    --board-width: min(60vh, 60vw);
+}
+
 .boardContainer {
     display: grid;
     justify-content: center;
-    --board-width: min(60vh, 60vw);
     @media (max-width: 900px) {
-      --board-width: 85vw;
+      --board-width: 90vw;
     }
 }
 
@@ -55,15 +58,14 @@
 
 .dashboard {
     position: absolute;
-    left: 10px;
-    top: 50%;
     font-size: 1.5rem;
+    top: calc(var(--board-width)/1.7);
     @media (max-width: 900px) {
         position: static;
         text-align: center;
         font-size: 1rem;
     }
-    margin: 2vh;
+    margin-left: 2vw;
 }
 
 .playagain {

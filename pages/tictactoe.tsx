@@ -3,6 +3,7 @@ import TicTacToeGame from "@/components/tictactoe/tictactoe";
 import { useState, useEffect } from "react";
 import Dashboard, { DashboardProps } from "@/components/tictactoe/dashboard";
 import { NavbarProps } from "@/components/navbar/navbar";
+import styles from "@/styles/TicTacToe.module.css";
 
 export async function getStaticProps() {
   const isSortEnabled = process.env.NAVBAR_SORT_ENABLED;
@@ -38,12 +39,14 @@ const TicTacToe = ({navbarProps}: TicTacToeProps) => {
     return (
         <>
             <Layout navbarProps={navbarProps}>
+            <div className={styles.container}>
                 <h1>Tic Tac Toe</h1>
                 <Dashboard data={playerState.data} />
                 <TicTacToeGame
                     playerState={playerState}
                     setPlayerState={setPlayerState}
                 />
+            </div>
             </Layout>
         </>
     );
