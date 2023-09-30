@@ -1,6 +1,7 @@
-import Navbar, { NavbarProps } from "@/components/navbar/navbar";
-import Layout, { LayoutProps } from "../components/layout/layout";
+import { NavbarProps } from "@/components/navbar/navbar";
+import Layout from "../components/layout/layout";
 import { useEffect } from "react";
+import Centered from "@/components/layout/centered";
 
 export async function getStaticProps() {
   const isSortEnabled = process.env.NAVBAR_SORT_ENABLED;
@@ -14,21 +15,17 @@ export async function getStaticProps() {
           isSortEnabled: isSortEnabled,
           isPathfinderEnabled: isPathfinderEnabled,
           isTicTacToeEnabled: isTicTacToeEnabled,
-        }
-      }
+        },
+      },
     },
   };
 }
 
 type HomeProps = {
-  navbarProps: NavbarProps,
-}
+  navbarProps: NavbarProps;
+};
 
-export default function Home(
-      {
-        navbarProps
-      }: HomeProps
-) {
+export default function Home({ navbarProps }: HomeProps) {
   useEffect(() => {
     document.title = "Home | Rang Corp";
   }, []);
@@ -36,10 +33,12 @@ export default function Home(
   return (
     <>
       <Layout navbarProps={navbarProps}>
-        <span>
-          This site has a couple of demonstrations of random things. Use the
-          Projects drop down to explore them all!
-        </span>
+        <Centered>
+          <span>
+            This site has a couple of demonstrations of random things. Use the
+            Projects drop down to explore them all!
+          </span>
+        </Centered>
       </Layout>
     </>
   );

@@ -61,6 +61,7 @@ const Navbar = (props: NavbarProps) => {
   return (
     <>
       <div className={styles.navbarcontainer}>
+        <div className={styles.container}>
         <div className={styles.navbaritem}>
           <Link href="/">Home</Link>
         </div>
@@ -93,6 +94,7 @@ const Navbar = (props: NavbarProps) => {
               </>
             )}
           </>
+        </div>
         </div>
       </div>
     </>
