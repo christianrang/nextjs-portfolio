@@ -247,6 +247,14 @@ const TicTacToeGame = ({ playerState, setPlayerState }: TicTacToeGameProps) => {
             case Player2:
                 player2wins++;
         }
+        setPlayerState(
+          {
+            data: {
+              player1Wins: player1wins,
+              player2Wins: player2wins,
+            }
+          }
+        )
         setBoardState({
             ...boardState,
             winner: winner,
