@@ -37,9 +37,9 @@ const TicTacToe = ({navbarProps}: TicTacToeProps) => {
 
     return (
         <>
-            <Dashboard data={playerState.data} />
             <Layout navbarProps={navbarProps}>
                 <h1>Tic Tac Toe</h1>
+                <Dashboard data={playerState.data} />
                 <TicTacToeGame
                     playerState={playerState}
                     setPlayerState={setPlayerState}

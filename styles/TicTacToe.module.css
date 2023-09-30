@@ -1,23 +1,28 @@
 .boardContainer {
     display: grid;
     justify-content: center;
+    --board-width: min(60vh, 60vw);
+    @media (max-width: 900px) {
+      --board-width: 85vw;
+    }
 }
 
 .board {
     display: grid;
-    width: 600px;
-    height: 600px;
+    width: var(--board-width);
+    height: var(--board-width);
+    aspect-ratio: 1/1;
     grid-template-columns: auto auto auto;
 }
 
 .block {
     border: 2px solid white;
     display: flex;
-    height: 200px;
-    width: 200px;
+    height: calc(var(--board-width) / 3);
+    width: calc(var(--board-width) / 3);
     justify-content: center;
     align-items: center;
-    font-size: 6rem;
+    font-size: calc(var(--board-width) / 5);
 }
 
 #block0,
@@ -51,18 +56,25 @@
 .dashboard {
     position: absolute;
     left: 10px;
-    top: 25vh;
-    font-size: 3vh;
+    top: 50%;
+    font-size: 1.5rem;
+    @media (max-width: 900px) {
+        position: static;
+        text-align: center;
+        font-size: 1rem;
+    }
+    margin: 2vh;
 }
 
 .playagain {
     padding: 0.7em 1.7em;
-    font-size: 18px;
+    font-size: 1rem;
     border-radius: 0.5em;
-    background: #3cb371;
-    border: 1px solid #3cb371;
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--secondary-bg-color);
     transition: all 0.3s;
-    box-shadow: 6px 6px 12px -6px -6px 12px #3cb371;
+    box-shadow: 6px 6px 12px -6px -6px 12px var(--secondary-bg-color);
+    color: var(--main-text-color);
 }
 
 .playagain:hover {

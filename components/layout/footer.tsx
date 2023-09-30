@@ -6,6 +6,7 @@ const Footer = () => {
     const githubHeight = 14;
     return (
         <>
+            <div className={styles.footercontainer}>
             <div className={styles.footer}>
                 <div className={styles.leftfooter}>
                     <Link href="https://github.com/christianrang/nextjs-portfolio">
@@ -21,6 +22,7 @@ const Footer = () => {
                 <div className={styles.rightfooter}>
                     <Link href="https://rang-corp.com">rang-corp.com</Link>
                 </div>
+            </div>
             </div>
         </>
     );

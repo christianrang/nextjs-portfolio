@@ -344,7 +344,7 @@ const TicTacToeGame = ({ playerState, setPlayerState }: TicTacToeGameProps) => {
                         })}
                     </div>
                     {boardState.winner && (
-                        <h1>Winner: {boardState.winner.name}</h1>
+                        <h2>Winner: {boardState.winner.name}</h2>
                     )}
                     {boardState.gameOver && (
                         <button
